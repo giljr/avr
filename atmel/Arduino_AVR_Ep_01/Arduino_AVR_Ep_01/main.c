@@ -13,7 +13,8 @@
  * Board: OPEN-SMART UNO (ARDUINO UNO compatible)
  * https://drive.google.com/drive/u/0/folders/0B6uNNXJ2z4Cxc3VwZHNaUkM3eGs
  *
- * WebPage: 
+ * WebPage: Atmel Studio 7 & UNO Serie (Ep#00) @giljrE 
+ * https://medium.com/series/atmel-studio-7-uno-ep-00-969b9cc3cf7b
  *
  * Created: 24/05/2018 07:11:15
  * Author : J3
