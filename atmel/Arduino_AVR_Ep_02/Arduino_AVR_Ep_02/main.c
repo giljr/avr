@@ -15,7 +15,8 @@
  * 
  * Datasheet: https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf
  *
- * WebPage: https://medium.com/series/atmel-studio-7-uno-ep-00-969b9cc3cf7b
+ * WebPage: Atmel Studio 7 & UNO Serie (Ep#00) @giljrE 
+ * https://medium.com/series/atmel-studio-7-uno-ep-00-969b9cc3cf7b
  *
  * Created: 25/05/2018 15:58:15
  * Author : J3
