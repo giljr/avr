@@ -56,11 +56,10 @@ int main(void)
                          /* Active State - Low */
 		if (!(PIND & (1<<PIND7)))
 		{
-			LedOn;
+			  LedOn;
 		} else
-			LedOff;
+			
 		{
-	}
-		
-    }
+			LedOff;
+	        }    
 }
