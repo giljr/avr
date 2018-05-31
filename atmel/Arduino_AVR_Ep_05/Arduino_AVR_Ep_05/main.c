@@ -68,28 +68,28 @@ ISR(PCINT2_vect)
 
 int main(void)
 {
-	                         /* PORTB Data Register - DS pg 92 */
+	                     /* PORTB Data Register - DS pg 92 */
     DDRB |=  (1<<DDB0);      /* LED Attach -> Pin 0 of PORTB (Arduino Digital 8) */
-	DDRD &= ~(1<<DDD7);      /* Switch Key -> Pin 7 of PORTD (Arduino Digital 7) */
+	DDRD &= ~(1<<DDD7);  /* Switch Key -> Pin 7 of PORTD (Arduino Digital 7) */
 	
-	PRR =0xFF;               /* Desable all peripherals  */
-	                         /* Set sleep mode */
-							 /* The 6 different modes are (sleep.h):
-							    SLEEP_MODE_IDLE?-?the least power savings
-							    SLEEP_MODE_ADC
-							    SLEEP_MODE_PWR_SAVE
-							    SLEEP_MODE_STANDBY
-							    SLEEP_MODE_EXT_STANDBY
-							    SLEEP_MODE_PWR_DOWN?-?the most power savings 
-								*/
+	PRR =0xFF;           /* Desable all peripherals  */
+	                     /* Set sleep mode */
+			     /* The 6 different modes are (sleep.h):
+				  SLEEP_MODE_IDLE?-?the least power savings
+				  SLEEP_MODE_ADC
+				  SLEEP_MODE_PWR_SAVE
+				  SLEEP_MODE_STANDBY
+				  SLEEP_MODE_EXT_STANDBY
+				  SLEEP_MODE_PWR_DOWN?-?the most power savings 
+			      */
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);        
 	
-	PCMSK2 |= (1<<PCINT23);	 /* Pin Change Mask Register 2 on Arduino Pin 7 I/O - pg 94 */
-	PCICR |= (1<< PCIE2);    /* bit selects whether pin change interrupt is enabled */
+	PCMSK2 |= (1<<PCINT23); /* Pin Change Mask Register 2 on Arduino Pin 7 I/O - pg 94 */
+	PCICR |= (1<< PCIE2); /* bit selects whether pin change interrupt is enabled */
 	
-	sei();                   /* Enable interrupt by setting the global interrupt mask */
+	sei();                /* Enable interrupt by setting the global interrupt mask */
 	
-	                         /* Polling Pin 7 PORTD */
+	                      /* Polling Pin 7 PORTD */
     while (1) 
     {		
                              /* Calling sleep mode */
