@@ -92,7 +92,9 @@ int main(void)
 	                         /* Polling Pin 7 PORTD */
     while (1) 
     {		
-                             /* Transferring the switching LED status to ISR */	
+                             /* Calling sleep mode */
+	    sleep_mode();
+	    
 		
     }
 }
