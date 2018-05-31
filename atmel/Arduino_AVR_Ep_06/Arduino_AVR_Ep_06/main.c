@@ -54,10 +54,9 @@
 #define LedToggle PINB |= (1<<PINB0)
 #define SWITCH_PRESSED !(PIND & (1<<PIND7))
                            
-						    
-						     /* Now the LED is toggle automatically at each 5 secs
+			     /* Now the LED is toggle automatically at each 5 secs
 							    and respond by pressing the button:)
-						     */
+			     */
 ISR(TIMER1_OVF_vect) 
 {
    LedToggle;
@@ -65,8 +64,8 @@ ISR(TIMER1_OVF_vect)
  
                              /* This interrupt is raised if you press the button connected 
 							    to pin 7 of the Arduino ;)							
-						     */ 
-//ISR(PCINT2_vect)
+			     */ 
+//ISR(PCINT2_vect) // /**Commented!**/
 //{
 //			if (SWITCH_PRESSED)
 //			{
@@ -81,34 +80,34 @@ ISR(TIMER1_OVF_vect)
 int main(void)
 {  
 	/**************************         I/O Routines         **************************/
-	                         /* PORTB Data Register - DS pg 92 */
+	                     /* PORTB Data Register - DS pg 92 */
     DDRB |=  (1<<DDB0);      /* LED Attach -> Pin 0 of PORTB (Arduino Digital 8) */
-	DDRD &= ~(1<<DDD7);      /* Switch Key -> Pin 7 of PORTD (Arduino Digital 7) */
+	DDRD &= ~(1<<DDD7);  /* Switch Key -> Pin 7 of PORTD (Arduino Digital 7) */
 	
 	
 	/**************************  Timer 1 Interrupt Routines  **************************/	
 	TCCR1B |=   (1 << CS12); /* Set scale to 256 */
-	                         /* Overflow formula:
-								foc = 16000000/2*256*[1+65535]
-								foc = 0,476837158203125 secs
-								(It overflows roughly twice a second!)
+	                     /* Overflow formula:
+				foc = 16000000/2*256*[1+65535]
+				foc = 0,476837158203125 secs
+				(It overflows roughly twice a second!)
                              */
 		
 	TIMSK1 |= (1 << TOIE1);  /* Enable Timer1 interrupt */
 	
 	
 	/**************************    Sleep Mode    Routines    **************************/     	
-	//PRR =0xFF;               /* Disable all peripherals  */
-	                         /* Set sleep mode */
-			                 /* The 6 different modes are (sleep.h):
-								SLEEP_MODE_IDLE?-?the least power savings
-								SLEEP_MODE_ADC
-								SLEEP_MODE_PWR_SAVE
-								SLEEP_MODE_STANDBY
-								SLEEP_MODE_EXT_STANDBY
-								SLEEP_MODE_PWR_DOWN?-?the most power savings 
-							 */
-	//set_sleep_mode(SLEEP_MODE_PWR_DOWN);   
+	//PRR =0xFF;         /* Disable all peripherals  */ /**Commented!**/
+	                     /* Set sleep mode */
+			     /* The 6 different modes are (sleep.h):
+				SLEEP_MODE_IDLE?-?the least power savings
+				SLEEP_MODE_ADC
+				SLEEP_MODE_PWR_SAVE
+				SLEEP_MODE_STANDBY
+				SLEEP_MODE_EXT_STANDBY
+				SLEEP_MODE_PWR_DOWN?-?the most power savings 
+			     */
+	//set_sleep_mode(SLEEP_MODE_PWR_DOWN);   /**Commented!**/
 	     
 	
 	/************************* Pin Change Interrupt Routines **************************/ 
@@ -116,13 +115,13 @@ int main(void)
 	PCICR |= (1<< PCIE2);    /* bit selects whether pin change interrupt is enabled */
 	
 	
-	sei();                   /* Enable interrupt by setting the global interrupt mask */
+	sei();               /* Enable interrupt by setting the global interrupt mask */
 	
-	                         /* Polling Pin 7 PORTD */
+	                     /* Polling Pin 7 PORTD */
     while (1) 
     {		
                              /* Calling sleep mode */
-	    //sleep_mode();
+	    //sleep_mode();  /**Commented!**/
 	    
 		
     }
