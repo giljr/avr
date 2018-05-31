@@ -2,7 +2,7 @@
  * Project - Ardu_Serie Episode #5
  * Arduino_AVR_Ep_05.c
  *
- * Descriptions: In the last post we used a pin change interrupt to detect wheather 
+ * Descriptions: In the last post we used a pin change interrupt to detect whether 
  * a switch was pressed. Now the main benefit of using interrupts as opposed to polling
  * is that we're not keeping the processor occupied just with one task but besides to 
  * be able to put the CPU down to low-power and reduce dramatically the power consumption 
@@ -21,9 +21,9 @@
  * Board: OPEN-SMART UNO (ARDUINO UNO compatible)
  * https://drive.google.com/drive/u/0/folders/0B6uNNXJ2z4Cxc3VwZHNaUkM3eGs
  * 
- * Datasheet: https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf
+ * Data sheet: https://www.sparkfun.com/datasheets/Components/SMD/ATMega328.pdf
  * 
- * avr-libc: https://www.nongnu.org/avr-libc/user-manual/group__util__delay.html
+ * avr-lib c: https://www.nongnu.org/avr-libc/user-manual/group__util__delay.html
  *
  * AVRFreaks: https://www.avrfreaks.net/
  *
