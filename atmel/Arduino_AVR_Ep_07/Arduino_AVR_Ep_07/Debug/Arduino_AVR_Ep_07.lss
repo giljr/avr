@@ -1,0 +1,202 @@
+
+Arduino_AVR_Ep_07.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000180  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000012c  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000180  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001b0  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  000001f0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000006d5  00000000  00000000  00000220  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000650  00000000  00000000  000008f5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000226  00000000  00000000  00000f45  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000050  00000000  00000000  0000116c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003a6  00000000  00000000  000011bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000002f  00000000  00000000  00001562  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  00001591  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 40 00 	jmp	0x80	; 0x80 <__vector_11>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 6b 00 	call	0xd6	; 0xd6 <main>
+  78:	0c 94 94 00 	jmp	0x128	; 0x128 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <__vector_11>:
+#define LedOff PORTB &= ~(1<<PORTB0)
+#define LedToggle PINB |= (1<<PINB0)
+#define SWITCH_PRESSED !(PIND & (1<<PIND7))
+
+ISR(TIMER1_COMPA_vect) /* Set the vector to compare mode */
+{
+  80:	1f 92       	push	r1
+  82:	0f 92       	push	r0
+  84:	0f b6       	in	r0, 0x3f	; 63
+  86:	0f 92       	push	r0
+  88:	11 24       	eor	r1, r1
+   LedToggle;
+  8a:	18 9a       	sbi	0x03, 0	; 3
+}
+  8c:	0f 90       	pop	r0
+  8e:	0f be       	out	0x3f, r0	; 63
+  90:	0f 90       	pop	r0
+  92:	1f 90       	pop	r1
+  94:	18 95       	reti
+
+00000096 <Timer_Frequency>:
+					     I wanted to overflow
+					  */
+
+void Timer_Frequency(uint8_t freq)
+{
+	TCCR1B |=   (1 << CS12) | (1 << WGM12); 
+  96:	e1 e8       	ldi	r30, 0x81	; 129
+  98:	f0 e0       	ldi	r31, 0x00	; 0
+  9a:	90 81       	ld	r25, Z
+  9c:	9c 60       	ori	r25, 0x0C	; 12
+  9e:	90 83       	st	Z, r25
+	TIMSK1 |= (1 << OCIE1A);
+  a0:	ef e6       	ldi	r30, 0x6F	; 111
+  a2:	f0 e0       	ldi	r31, 0x00	; 0
+  a4:	90 81       	ld	r25, Z
+  a6:	92 60       	ori	r25, 0x02	; 2
+  a8:	90 83       	st	Z, r25
+	//OCRnA = (F_CPU/(Frequency * 2 * N) - 1)
+	OCR1A = (F_CPU/(freq * 2 * 256) - 1);
+  aa:	28 2f       	mov	r18, r24
+  ac:	30 e0       	ldi	r19, 0x00	; 0
+  ae:	32 2f       	mov	r19, r18
+  b0:	22 27       	eor	r18, r18
+  b2:	33 0f       	add	r19, r19
+  b4:	03 2e       	mov	r0, r19
+  b6:	00 0c       	add	r0, r0
+  b8:	44 0b       	sbc	r20, r20
+  ba:	55 0b       	sbc	r21, r21
+  bc:	60 e0       	ldi	r22, 0x00	; 0
+  be:	74 e2       	ldi	r23, 0x24	; 36
+  c0:	84 ef       	ldi	r24, 0xF4	; 244
+  c2:	90 e0       	ldi	r25, 0x00	; 0
+  c4:	0e 94 72 00 	call	0xe4	; 0xe4 <__udivmodsi4>
+  c8:	21 50       	subi	r18, 0x01	; 1
+  ca:	31 09       	sbc	r19, r1
+  cc:	30 93 89 00 	sts	0x0089, r19	; 0x800089 <__TEXT_REGION_LENGTH__+0x7e0089>
+  d0:	20 93 88 00 	sts	0x0088, r18	; 0x800088 <__TEXT_REGION_LENGTH__+0x7e0088>
+  d4:	08 95       	ret
+
+000000d6 <main>:
+
+int main(void)
+{  
+	/**************************         I/O Routines         **************************/
+	                     /* PORTB Data Register - DS pg 92 */
+    DDRB |=  (1<<DDB0);      /* LED Attach -> Pin 0 of PORTB (Arduino Digital 8) */
+  d6:	20 9a       	sbi	0x04, 0	; 4
+	DDRD &= ~(1<<DDD7);  /* Switch Key -> Pin 7 of PORTD (Arduino Digital 7) */
+  d8:	57 98       	cbi	0x0a, 7	; 10
+	
+	Timer_Frequency(10);
+  da:	8a e0       	ldi	r24, 0x0A	; 10
+  dc:	0e 94 4b 00 	call	0x96	; 0x96 <Timer_Frequency>
+	/************************* Pin Change Interrupt Routines **************************/ 
+	//PCMSK2 |= (1<<PCINT23);  /* Pin Change Mask Register 2 on Arduino Pin 7 I/O - pg 94 */
+	//PCICR |= (1<< PCIE2);    /* bit selects whether pin change interrupt is enabled */
+	/**Commented on Episode #7!**/
+	
+	sei();               /* Enable interrupt by setting the global interrupt mask */
+  e0:	78 94       	sei
+  e2:	ff cf       	rjmp	.-2      	; 0xe2 <main+0xc>
+
+000000e4 <__udivmodsi4>:
+  e4:	a1 e2       	ldi	r26, 0x21	; 33
+  e6:	1a 2e       	mov	r1, r26
+  e8:	aa 1b       	sub	r26, r26
+  ea:	bb 1b       	sub	r27, r27
+  ec:	fd 01       	movw	r30, r26
+  ee:	0d c0       	rjmp	.+26     	; 0x10a <__udivmodsi4_ep>
+
+000000f0 <__udivmodsi4_loop>:
+  f0:	aa 1f       	adc	r26, r26
+  f2:	bb 1f       	adc	r27, r27
+  f4:	ee 1f       	adc	r30, r30
+  f6:	ff 1f       	adc	r31, r31
+  f8:	a2 17       	cp	r26, r18
+  fa:	b3 07       	cpc	r27, r19
+  fc:	e4 07       	cpc	r30, r20
+  fe:	f5 07       	cpc	r31, r21
+ 100:	20 f0       	brcs	.+8      	; 0x10a <__udivmodsi4_ep>
+ 102:	a2 1b       	sub	r26, r18
+ 104:	b3 0b       	sbc	r27, r19
+ 106:	e4 0b       	sbc	r30, r20
+ 108:	f5 0b       	sbc	r31, r21
+
+0000010a <__udivmodsi4_ep>:
+ 10a:	66 1f       	adc	r22, r22
+ 10c:	77 1f       	adc	r23, r23
+ 10e:	88 1f       	adc	r24, r24
+ 110:	99 1f       	adc	r25, r25
+ 112:	1a 94       	dec	r1
+ 114:	69 f7       	brne	.-38     	; 0xf0 <__udivmodsi4_loop>
+ 116:	60 95       	com	r22
+ 118:	70 95       	com	r23
+ 11a:	80 95       	com	r24
+ 11c:	90 95       	com	r25
+ 11e:	9b 01       	movw	r18, r22
+ 120:	ac 01       	movw	r20, r24
+ 122:	bd 01       	movw	r22, r26
+ 124:	cf 01       	movw	r24, r30
+ 126:	08 95       	ret
+
+00000128 <_exit>:
+ 128:	f8 94       	cli
+
+0000012a <__stop_program>:
+ 12a:	ff cf       	rjmp	.-2      	; 0x12a <__stop_program>
