@@ -77,7 +77,7 @@ ISR(TIMER1_COMPB_vect)       /* Set the vector to compare mode */
 }
                              /* Now the function representing the frequency
 					            I wanted to overflow
-					         */
+		             */
 
 //void Timer_Frequency(uint8_t freq) /**Commented on Episode #8!**/
 //{
@@ -87,28 +87,28 @@ ISR(TIMER1_COMPB_vect)       /* Set the vector to compare mode */
 //	OCR1A = (F_CPU/(freq * 2 * 256) - 1);
 //}
      
-	                         /* No prescale, CTC Mode;
-							   Generate 2 OCR channels
-					         */
+	                     /* No prescale, CTC Mode;
+				Generate 2 OCR channels
+			     */
 void PWM_Init(void)
 	 {
 		 TCCR1B |=   (1 << CS10) | (1 << WGM12);
 		 TIMSK1 |= (1 << OCIE1A) | (1 << OCIE1B);
-		                     // Duty cycle proportions
+		             // Duty cycle proportions
 		 OCR1A = 800;
 		 OCR1B = 100;
 	 }                      
-			                 /* Now the LED is toggle automatically at each 5 secs
-							    and respond by pressing the button:)
-			                 */
+			     /* Now the LED is toggle automatically at each 5 secs
+				and respond by pressing the button:)
+			     */
 //ISR(TIMER1_OVF_vect)       /**Commented on Episode #7!**/
 //{
 //   LedToggle;
 //} 
  
                              /* This interrupt is raised if you press the button connected 
-							    to pin 7 of the Arduino ;)							
-			                 */ 
+				to pin 7 of the Arduino ;)							
+			     */ 
 //ISR(PCINT2_vect) //        /**Commented on Episode #6!**/
 //{
 //			if (SWITCH_PRESSED)
@@ -124,9 +124,9 @@ void PWM_Init(void)
 int main(void)
 {  
 	/**************************         I/O Routines         **************************/
-	                         /* PORTB Data Register - DS pg 92 */
+	                     /* PORTB Data Register - DS pg 92 */
     DDRB |=  (1<<DDB0);      /* LED Attach -> Pin 0 of PORTB (Arduino Digital 8) */
-	DDRD &= ~(1<<DDD7);      /* Switch Key -> Pin 7 of PORTD (Arduino Digital 7) */
+	DDRD &= ~(1<<DDD7);  /* Switch Key -> Pin 7 of PORTD (Arduino Digital 7) */
 	
 	//Timer_Frequency(10);   /**Commented on Episode #8!**/
 	
@@ -135,10 +135,10 @@ int main(void)
 	
 	/**************************  Timer 1 Interrupt Routines  **************************/	
 	//TCCR1B |=   (1 << CS12) | (1 << WGM12); /* Set CCP / CTC Compare Mode Episode #7 */
-	                         /* Overflow formula:
-				                foc = 16000000/2*256*[1+65535]
-				                foc = 0,476837158203125 secs
-				                (It overflows roughly twice a second!)
+	                     /* Overflow formula:
+				foc = 16000000/2*256*[1+65535]
+				foc = 0,476837158203125 secs
+				(It overflows roughly twice a second!)
                              */
 		
 	//TIMSK1 |= (1 << TOIE1);/* Enable Timer1 interrupt */ /**Commented  on Episode #7!**/
@@ -146,31 +146,31 @@ int main(void)
 	
 	
 	/**************************    Sleep Mode    Routines    **************************/     	
-	//PRR =0xFF;             /* Disable all peripherals  */ /**Commented  on Episode #6!**/
-	                         /* Set sleep mode */
-			                 /* The 6 different modes are (sleep.h):
-								SLEEP_MODE_IDLE?-?the least power savings
-								SLEEP_MODE_ADC
-								SLEEP_MODE_PWR_SAVE
-								SLEEP_MODE_STANDBY
-								SLEEP_MODE_EXT_STANDBY
-								SLEEP_MODE_PWR_DOWN?-?the most power savings 
-							 */
+	//PRR =0xFF;            /* Disable all peripherals  */ /**Commented  on Episode #6!**/
+	                        /* Set sleep mode */
+			        /* The 6 different modes are (sleep.h):
+				   SLEEP_MODE_IDLE?-?the least power savings
+				   SLEEP_MODE_ADC
+				   SLEEP_MODE_PWR_SAVE
+				   SLEEP_MODE_STANDBY
+				   SLEEP_MODE_EXT_STANDBY
+				   SLEEP_MODE_PWR_DOWN?-?the most power savings 
+				*/
 	//set_sleep_mode(SLEEP_MODE_PWR_DOWN);   /**Commented on Episode #6!**/
 	     
 	
 	/************************* Pin Change Interrupt Routines **************************/ 
 	//PCMSK2 |= (1<<PCINT23);  /* Pin Change Mask Register 2 on Arduino Pin 7 I/O - pg 94 */
-	//PCICR |= (1<< PCIE2);  /* bit selects whether pin change interrupt is enabled */
-	/**Commented on Episode #7!**/
+	//PCICR |= (1<< PCIE2); /* bit selects whether pin change interrupt is enabled */
+	                        /**Commented on Episode #7!**/
 	
-	sei();                   /* Enable interrupt by setting the global interrupt mask */
+	sei();                  /* Enable interrupt by setting the global interrupt mask */
 	
-	                         /* Polling Pin 7 PORTD */
+	                        /* Polling Pin 7 PORTD */
     while (1) 
     {		
-                             /* Calling sleep mode */
-	    //sleep_mode();      /**Commented on Episode #6!**/
+                                /* Calling sleep mode */
+	    //sleep_mode();     /**Commented on Episode #6!**/
 	    
 		
     }
